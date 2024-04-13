@@ -68,7 +68,7 @@ class _BaseScreenState extends State<BaseScreen> {
           ),
           ListTile(
             leading: Icon(Icons.favorite),
-            title: const Text('Latihan API'),
+            title: const Text('Latihan APII'),
             selected: _selectedIndex == 0,
             onTap: () {
               _onItemTapped(0);
