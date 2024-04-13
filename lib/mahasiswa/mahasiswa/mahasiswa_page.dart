@@ -53,7 +53,7 @@ class _MahasiswaScreenState extends State<MahasiswaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Data Mahasiswa')),
+      appBar: AppBar(title: Text('Data API')),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
