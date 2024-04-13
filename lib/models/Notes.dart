@@ -27,4 +27,10 @@ List<Note> sampleNotes = [
         '1. Skill\n2. Pikiran chili\n3. Spaghetti carbonara\n4. Chocolate lava cake',
     modifiedTime: DateTime(2024, 4, 4, 34, 5),
   ),
+  Note(
+    id: 1,
+    title: 'Problem Solving',
+    content: 'Probrlem solving adalah',
+    modifiedTime: DateTime(2024, 4, 4, 34, 5),
+  ),
 ];
