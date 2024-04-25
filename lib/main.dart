@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_self/Screen/Base.dart';
 import 'package:my_self/Screen/news_screen.dart';
+
+import 'package:my_self/Screen/routes/DatasScreen.dart';
 import 'package:my_self/Screen/started.dart';
 
 void main() {
@@ -14,8 +17,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
-      home: LoginSignUpScreen(),
-      routes: {'/news-screen': (context) => const NewsScreen()},
+      home: const LoginSignUpScreen(),
+      initialRoute: '/',
+      routes: {
+        '/base': (context) => const BaseScreen(),
+        '/datas-screen': (context) => const DatasScreen()
+      },
+      // routes: {'/news-screen': (context) => const NewsScreen()},
     );
   }
 }

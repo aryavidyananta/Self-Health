@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class SizeConfig {
   static double? blockSizeHorizontal;
   static double? blockSizedVertical;
 
+  // ignore: prefer_typing_uninitialized_variables
   static var blocSizeHorizontal;
 
   void init(BuildContext context) {

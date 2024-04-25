@@ -17,9 +17,12 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // ignore: prefer_const_constructors
       margin: EdgeInsets.symmetric(horizontal: 25),
+      // ignore: prefer_const_constructors
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       decoration: BoxDecoration(
+          // ignore: prefer_const_constructors
           color: Color.fromARGB(255, 0, 110, 255)!.withOpacity(0.5),
           borderRadius: BorderRadius.circular(12)),
       child: Row(
@@ -31,6 +34,7 @@ class MyTextField extends StatelessWidget {
                 border: InputBorder.none,
                 hintText: hintText,
                 hintStyle: TextStyle(
+                    // ignore: prefer_const_constructors
                     color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.5))),
             obscureText: obsecureText,
           )),

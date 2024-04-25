@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:my_self/dto/datas.dart';
 import 'dart:convert';
 import 'package:my_self/mahasiswa/dto/news.dart';
 import 'package:my_self/mahasiswa/endpoints/endpoints.dart';

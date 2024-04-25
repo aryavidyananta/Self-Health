@@ -8,6 +8,7 @@ import 'package:my_self/Screen/Jurnal.dart';
 import 'package:my_self/Screen/home.dart';
 import 'package:my_self/Screen/news_screen.dart';
 import 'package:my_self/Screen/profile.dart';
+import 'package:my_self/Screen/routes/DatasScreen.dart';
 import 'package:my_self/mahasiswa/mahasiswa/mahasiswa_page.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -87,6 +88,17 @@ class _BaseScreenState extends State<BaseScreen> {
               _onItemTapped(0);
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => AddTypes()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: const Text('UP Images'),
+            selected: _selectedIndex == 0,
+            onTap: () {
+              // Update the state of the app
+              _onItemTapped(0);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DatasScreen()));
             },
           ),
           ListTile(

@@ -9,7 +9,7 @@ class NewsScreen extends StatefulWidget {
   State<NewsScreen> createState() => _NewsScreenState();
 }
 
-final Future<List<news>> _news = Dataservis.fetchNews();
+final Future<List<news>> _news = DataService.fetchNews() as Future<List<news>>;
 
 class _NewsScreenState extends State<NewsScreen> {
   @override
