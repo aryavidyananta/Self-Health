@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:my_self/Screen/edit.dart';
@@ -84,8 +86,8 @@ class _CRUDScreenState extends State<CRUDScreen> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                          color:
-                              Color.fromARGB(255, 45, 150, 255).withOpacity(.8),
+                          color: const Color.fromARGB(255, 45, 150, 255)
+                              .withOpacity(.8),
                           borderRadius: BorderRadius.circular(10)),
                       child: const Icon(
                         Icons.sort,
@@ -109,7 +111,7 @@ class _CRUDScreenState extends State<CRUDScreen> {
                   Icons.search,
                   color: Color.fromARGB(255, 255, 255, 255),
                 ),
-                fillColor: Color.fromARGB(255, 67, 159, 251),
+                fillColor: const Color.fromARGB(255, 67, 159, 251),
                 filled: true,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -123,7 +125,7 @@ class _CRUDScreenState extends State<CRUDScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Expanded(
@@ -238,7 +240,7 @@ class _CRUDScreenState extends State<CRUDScreen> {
           }
         },
         elevation: 10,
-        backgroundColor: Color.fromARGB(255, 70, 175, 255),
+        backgroundColor: const Color.fromARGB(255, 70, 175, 255),
         child: const Icon(
           Icons.add,
           size: 38,

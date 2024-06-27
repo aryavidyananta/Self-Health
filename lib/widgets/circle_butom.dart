@@ -4,6 +4,7 @@ import 'package:my_self/constants/Colors2.dart';
 class CircleButton extends StatelessWidget {
   final IconData icon;
   final GestureTapCallback onPressed;
+  // ignore: use_super_parameters
   const CircleButton({Key? key, required this.icon, required this.onPressed})
       : super(key: key);
 

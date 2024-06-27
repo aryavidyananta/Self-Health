@@ -1,9 +1,12 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:my_self/constants/icons.dart';
 import 'package:my_self/models/Lesson2.dart';
 
 class LessonCard extends StatelessWidget {
   final Lesson lesson;
+  // ignore: use_super_parameters
   const LessonCard({Key? key, required this.lesson}) : super(key: key);
 
   @override

@@ -15,7 +15,6 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     if (widget.note != null) {
       _titleController = TextEditingController(text: widget.note!.title);
       _contentController = TextEditingController(text: widget.note!.content);
@@ -43,8 +42,8 @@ class _EditScreenState extends State<EditScreen> {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                        color:
-                            Color.fromARGB(255, 65, 179, 255).withOpacity(.8),
+                        color: const Color.fromARGB(255, 65, 179, 255)
+                            .withOpacity(.8),
                         borderRadius: BorderRadius.circular(10)),
                     child: const Icon(
                       Icons.arrow_back_ios_new,
@@ -88,7 +87,7 @@ class _EditScreenState extends State<EditScreen> {
               context, [_titleController.text, _contentController.text]);
         },
         elevation: 10,
-        backgroundColor: Color.fromARGB(255, 65, 179, 255),
+        backgroundColor: const Color.fromARGB(255, 65, 179, 255),
         child: const Icon(Icons.save),
       ),
     );

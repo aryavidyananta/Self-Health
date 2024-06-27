@@ -1,428 +1,167 @@
-import 'package:flutter/material.dart';
-import 'package:my_self/component/size_config.dart';
+// ignore_for_file: file_names
 
-class CourseScreen extends StatelessWidget {
-  const CourseScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:my_self/Screen/MindHaven/ProfilDokterScreen.dart';
+import 'package:my_self/dto/dokter.dart';
+import 'package:my_self/component/dokter_item.dart';
+import 'package:my_self/service/data_service.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    return Scaffold(
-      body: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.blockSizeHorizontal! * 7),
-            child: Column(
-              children: const [ButtonBar(), Frame10280Widget()],
-            ),
-          )
-        ],
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DoctorListScreen(),
+      routes: {},
     );
   }
 }
 
-class Frame10280Widget extends StatelessWidget {
-  const Frame10280Widget({super.key});
+class DoctorListScreen extends StatefulWidget {
+  const DoctorListScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _DoctorListScreenState createState() => _DoctorListScreenState();
+}
+
+class _DoctorListScreenState extends State<DoctorListScreen> {
+  late Future<List<Dokter>> futureDokterList;
+  final TextEditingController _searchController = TextEditingController();
+  List<Dokter> _allDokter = [];
+  List<Dokter> _filteredDokter = [];
+  String _orderBy = 'ASC'; // Default order
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDokter();
+    _searchController.addListener(_filterDokter);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _fetchDokter() {
+    futureDokterList = DataService.fetchDokterByYear('2024', orderBy: _orderBy);
+  }
+
+  void _filterDokter() {
+    setState(() {
+      if (_searchController.text.isEmpty) {
+        _filteredDokter = _allDokter;
+      } else {
+        _filteredDokter = _allDokter.where((dokter) {
+          return dokter.namaLengkap
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase());
+        }).toList();
+      }
+    });
+  }
+
+  void _onOrderChanged(String orderBy) {
+    setState(() {
+      _orderBy = orderBy;
+      _fetchDokter();
+    });
+  }
+
+  void navigateToDetailScreen(int idDokter) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailDokterScreen(idDokter: idDokter),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Figma Flutter Generator Frame10280Widget - FRAME
-    return Container(
-        width: 326,
-        height: 671,
-        decoration: BoxDecoration(),
-        child: Stack(children: <Widget>[
-          Positioned(
-              top: 0,
-              left: 0,
-              child: Container(
-                  decoration: BoxDecoration(),
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                  child:
-                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                    Container(
-                        width: 326,
-                        height: 217.9999542236328,
-                        child: Stack(children: <Widget>[
-                          Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Container(
-                                  width: 326,
-                                  height: 217.9999542236328,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Container(
-                                            width: 326,
-                                            height: 217.9999542236328,
-                                            child: Stack(children: <Widget>[
-                                              Positioned(
-                                                  top: 0,
-                                                  left: 0,
-                                                  child: Container(
-                                                      width: 326,
-                                                      height: 217.9999542236328,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ),
-                                                      ))),
-                                              Positioned(
-                                                child: Image.asset(
-                                                  'assets/images/Image2.png',
-                                                  width: 400,
-                                                  height: 200,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                  top: 0,
-                                                  left: 0,
-                                                  child: //Mask holder Template
-                                                      Container(
-                                                          width: 326,
-                                                          height:
-                                                              217.9999542236328,
-                                                          child: null)),
-                                              Positioned(
-                                                  top: 160.99996948242188,
-                                                  left: -2.842170943040401e-14,
-                                                  child: Container(
-                                                      width: 326,
-                                                      height:
-                                                          56.481807708740234,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  0),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ),
-                                                        color: Color.fromRGBO(
-                                                            65, 94, 146, 1),
-                                                      ))),
-                                            ]))),
-                                  ]))),
-                          Positioned(
-                              top: 172,
-                              left: 5,
-                              child: Text(
-                                'Mood Cepat Berubah Apakah Bipolar ?',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    fontSize: 11,
-                                    letterSpacing:
-                                        0 /*percentages not used in flutter. defaulting to zero*/,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1),
-                              )),
-                          Positioned(
-                              top: 169,
-                              left: 269,
-                              child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Container(
-                                            width: 40,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                              color: Color.fromRGBO(
-                                                  50, 73, 115, 1),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.elliptical(40, 40)),
-                                            ))),
-                                  ]))),
-                          Positioned(
-                              top: 191,
-                              left: 14,
-                              child: Text(
-                                '30 Menit',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    fontSize: 10,
-                                    letterSpacing:
-                                        0 /*percentages not used in flutter. defaulting to zero*/,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1),
-                              )),
-                        ])),
-                    SizedBox(height: 16),
-                    Container(
-                        width: 326,
-                        height: 218.48178100585938,
-                        child: Stack(children: <Widget>[
-                          Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Container(
-                                  width: 326,
-                                  height: 218.48178100585938,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Container(
-                                            width: 326,
-                                            height: 217.99993896484375,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight:
-                                                    Radius.circular(20),
-                                              ),
-                                            ))),
-                                    Positioned(
-                                      child: Image.asset(
-                                        'assets/images/Image2.png',
-                                        width: 400,
-                                        height: 200,
-                                      ),
-                                    ),
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: //Mask holder Template
-                                            Container(
-                                                width: 326,
-                                                height: 217.99993896484375,
-                                                child: null)),
-                                    Positioned(
-                                        top: 161.99996948242188,
-                                        left: 0,
-                                        child: Container(
-                                            width: 326,
-                                            height: 56.481807708740234,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(0),
-                                                topRight: Radius.circular(0),
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight:
-                                                    Radius.circular(20),
-                                              ),
-                                              color: Color.fromRGBO(
-                                                  65, 94, 146, 1),
-                                            ))),
-                                  ]))),
-                          Positioned(
-                              top: 172,
-                              left: 14,
-                              child: Text(
-                                'Cara Berdamai Dengan Masa Lalu',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    fontSize: 11,
-                                    letterSpacing:
-                                        0 /*percentages not used in flutter. defaulting to zero*/,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1),
-                              )),
-                          Positioned(
-                              top: 191,
-                              left: 14,
-                              child: Text(
-                                '30 Menit',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    fontSize: 10,
-                                    letterSpacing:
-                                        0 /*percentages not used in flutter. defaulting to zero*/,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1),
-                              )),
-                          Positioned(
-                              top: 169.99993896484375,
-                              left: 270,
-                              child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Container(
-                                            width: 40,
-                                            height: 40,
-                                            child: Stack(children: <Widget>[
-                                              Positioned(
-                                                  top: 0,
-                                                  left: 0,
-                                                  child: Container(
-                                                      width: 40,
-                                                      height: 40,
-                                                      decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            50, 73, 115, 1),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius
-                                                                    .elliptical(
-                                                                        40,
-                                                                        40)),
-                                                      ))),
-                                            ]))),
-                                  ]))),
-                        ])),
-                    SizedBox(height: 16),
-                    Container(
-                        width: 326,
-                        height: 220.48178100585938,
-                        child: Stack(children: <Widget>[
-                          Positioned(
-                              top: 0,
-                              left: 0,
-                              child: Container(
-                                  width: 326,
-                                  height: 220.48178100585938,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Container(
-                                            width: 326,
-                                            height: 217.99993896484375,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight:
-                                                    Radius.circular(20),
-                                              ),
-                                              color: Color.fromRGBO(
-                                                  250, 250, 250, 1),
-                                            ))),
-                                    Positioned(
-                                      child: Image.asset(
-                                        'assets/images/Image2.png',
-                                        width: 400,
-                                        height: 200,
-                                      ),
-                                    ),
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: //Mask holder Template
-                                            Container(
-                                                width: 326,
-                                                height: 217.99993896484375,
-                                                child: null)),
-                                    Positioned(
-                                        top: 163.99996948242188,
-                                        left: 0,
-                                        child: Container(
-                                            width: 326,
-                                            height: 56.481807708740234,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(0),
-                                                topRight: Radius.circular(0),
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight:
-                                                    Radius.circular(20),
-                                              ),
-                                              color: Color.fromRGBO(
-                                                  65, 94, 146, 1),
-                                            ))),
-                                  ]))),
-                          Positioned(
-                              top: 172.51806640625,
-                              left: 268,
-                              child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Container(
-                                            width: 40,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                              color: Color.fromRGBO(
-                                                  50, 73, 115, 1),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.elliptical(40, 40)),
-                                            ))),
-                                  ]))),
-                          Positioned(
-                              top: 172,
-                              left: 12,
-                              child: Text(
-                                'Toxic vs Healthy Relationship',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(255, 255, 255, 1),
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    fontSize: 11,
-                                    letterSpacing:
-                                        0 /*percentages not used in flutter. defaulting to zero*/,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1),
-                              )),
-                          Positioned(
-                              top: 191,
-                              left: 12,
-                              child: Container(
-                                  width: 42,
-                                  height: 13,
-                                  child: Stack(children: <Widget>[
-                                    Positioned(
-                                        top: 0,
-                                        left: 0,
-                                        child: Text(
-                                          '30 Menit',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  255, 255, 255, 1),
-                                              fontFamily: 'Plus Jakarta Sans',
-                                              fontSize: 10,
-                                              letterSpacing:
-                                                  0 /*percentages not used in flutter. defaulting to zero*/,
-                                              fontWeight: FontWeight.normal,
-                                              height: 1),
-                                        )),
-                                  ]))),
-                        ])),
-                  ]))),
-        ]));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          const SizedBox(height: 60),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Cari dokter...',
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                IconButton(
+                  icon: const Icon(Icons.arrow_upward),
+                  onPressed: () => _onOrderChanged('ASC'),
+                  color: _orderBy == 'ASC' ? Colors.blue : Colors.black,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.arrow_downward),
+                  onPressed: () => _onOrderChanged('DESC'),
+                  color: _orderBy == 'DESC' ? Colors.blue : Colors.black,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder<List<Dokter>>(
+              future: futureDokterList,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(child: Text('No doctors available'));
+                } else {
+                  _allDokter = snapshot.data!;
+                  _filteredDokter = _searchController.text.isEmpty
+                      ? _allDokter
+                      : _allDokter.where((dokter) {
+                          return dokter.namaLengkap
+                              .toLowerCase()
+                              .contains(_searchController.text.toLowerCase());
+                        }).toList();
+                  return ListView.builder(
+                    itemCount: _filteredDokter.length,
+                    itemBuilder: (context, index) {
+                      Dokter dokter = _filteredDokter[index];
+                      return InkWell(
+                        onTap: () {
+                          navigateToDetailScreen(dokter.idDokter);
+                        },
+                        child: DoctorItem(dokter: dokter),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

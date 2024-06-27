@@ -1,7 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:my_self/constants/Colors2.dart';
 
 class SearchTextField extends StatelessWidget {
+  // ignore: use_super_parameters
   const SearchTextField({
     Key? key,
   }) : super(key: key);

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:my_self/Screen/NoteView.dart';
 import 'package:my_self/models/note_model.dart';

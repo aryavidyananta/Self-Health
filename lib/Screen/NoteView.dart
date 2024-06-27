@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import 'package:my_self/models/note_model.dart';
@@ -47,6 +49,7 @@ class NoteView extends StatelessWidget {
                     );
                   });
             },
+            // ignore: prefer_const_constructors
             icon: Icon(Icons.delete),
           ),
         ],

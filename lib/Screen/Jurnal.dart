@@ -1,6 +1,14 @@
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:my_self/Screen/CRUDJurnal.dart';
+import 'package:my_self/Screen/MindHaven/ReadJurnal.dart';
+// ignore: unused_import
 import 'package:my_self/Screen/addJurnal.dart';
+// ignore: unused_import
 import 'package:my_self/Screen/home.dart';
 import 'package:my_self/component/size_config.dart';
 
@@ -18,11 +26,11 @@ class JurnalScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.blockSizeHorizontal! * 7),
-            child: Column(
-              children: const [
+            child: const Column(
+              children: [
                 ButtonBar(),
                 Text(
-                  'Jurnal Kamu',
+                  'Catatan Kamu',
                   style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                 ),
                 GetBestMedicalService(),
@@ -35,8 +43,6 @@ class JurnalScreen extends StatelessWidget {
                 ),
                 GetBestMedicalService1(),
                 GetBestMedicalService2(),
-                GetBestMedicalService3(),
-                GetBestMedicalService4(),
               ],
             ),
           )
@@ -47,6 +53,7 @@ class JurnalScreen extends StatelessWidget {
 }
 
 class GetBestMedicalService extends StatelessWidget {
+  // ignore: use_super_parameters
   const GetBestMedicalService({Key? key}) : super(key: key);
 
   @override
@@ -61,7 +68,7 @@ class GetBestMedicalService extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 17, 150, 245),
+              color: const Color.fromARGB(255, 17, 150, 245),
               borderRadius: BorderRadius.circular(18.0),
             ),
             child: Row(
@@ -75,7 +82,8 @@ class GetBestMedicalService extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AddTypes()),
+                          MaterialPageRoute(
+                              builder: (context) => NotesScreen()),
                         );
                       },
                       child: Column(
@@ -83,7 +91,7 @@ class GetBestMedicalService extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Riwayat Jurnal",
+                            "Riwayat Catatan",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -94,7 +102,7 @@ class GetBestMedicalService extends StatelessWidget {
                           ),
                           SizedBox(height: SizeConfig.blockSizeHorizontal! * 1),
                           Text(
-                            "Lihat daftar jurnal yang telah kamu tulis",
+                            "Lihat daftar catatan yang telah kamu tulis",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -110,7 +118,7 @@ class GetBestMedicalService extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(child: Image.asset("assets/images/health.png"))
+                Expanded(child: Image.asset("assets/images/makan.png"))
               ],
             ),
           ),
@@ -121,6 +129,7 @@ class GetBestMedicalService extends StatelessWidget {
 }
 
 class GetBestMedicalService1 extends StatelessWidget {
+  // ignore: use_super_parameters
   const GetBestMedicalService1({Key? key}) : super(key: key);
 
   @override
@@ -135,7 +144,7 @@ class GetBestMedicalService1 extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 252, 98, 147),
+              color: const Color.fromARGB(255, 252, 98, 147),
               borderRadius: BorderRadius.circular(18.0),
             ),
             child: Row(
@@ -149,7 +158,8 @@ class GetBestMedicalService1 extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CRUDScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => ReadJurnalScreen()),
                         );
                       },
                       child: Column(
@@ -184,7 +194,7 @@ class GetBestMedicalService1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(child: Image.asset("assets/images/health.png"))
+                Expanded(child: Image.asset("assets/images/mood.png"))
               ],
             ),
           ),
@@ -209,7 +219,7 @@ class GetBestMedicalService2 extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 252, 191, 7),
+                color: const Color.fromARGB(255, 252, 191, 7),
                 borderRadius: BorderRadius.circular(18.0)),
             child: Row(
               children: [
@@ -245,7 +255,7 @@ class GetBestMedicalService2 extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(child: Image.asset("assets/images/health.png"))
+                Expanded(child: Image.asset("assets/images/cemas.png"))
               ],
             ),
           ),
@@ -270,7 +280,7 @@ class GetBestMedicalService3 extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 135, 56, 247),
+                color: const Color.fromARGB(255, 135, 56, 247),
                 borderRadius: BorderRadius.circular(18.0)),
             child: Row(
               children: [
@@ -331,7 +341,7 @@ class GetBestMedicalService4 extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                color: Color(0xffDCEDF9),
+                color: const Color(0xffDCEDF9),
                 borderRadius: BorderRadius.circular(18.0)),
             child: Row(
               children: [

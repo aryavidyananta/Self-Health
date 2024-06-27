@@ -1,173 +1,141 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:my_self/dbhelper/Db_helper.dart';
+import 'package:my_self/Screen/MindHaven/ReadNotes.dart';
+import 'package:my_self/Screen/MindHaven/tambahNotes.dart';
+import 'package:my_self/dto/notes.dart';
+import 'package:my_self/service/data_service.dart';
 
-class AddTypes extends StatefulWidget {
-  const AddTypes({super.key});
-
+// ignore: use_key_in_widget_constructors
+class NotesScreen extends StatefulWidget {
   @override
-  State<AddTypes> createState() => _AddTypesState();
+  // ignore: library_private_types_in_public_api
+  _NotesScreenState createState() => _NotesScreenState();
 }
 
-class _AddTypesState extends State<AddTypes> {
-  List<Map<String, dynamic>> _allData = [];
-
-  bool _isLoading = true;
-
-  void _refreshData() async {
-    final data = await SQLHelper.getAllData();
-    setState(() {
-      _allData = data;
-      _isLoading = false;
-    });
-  }
+class _NotesScreenState extends State<NotesScreen> {
+  late Future<List<Notes>> _notesFuture;
 
   @override
   void initState() {
     super.initState();
-    _refreshData();
+    _notesFuture = DataService.fetchNotes();
   }
 
-  Future<void> _addData() async {
-    await SQLHelper.createData(_titleController.text, _descController.text);
-    _refreshData();
-  }
-
-  Future<void> _updateData(int id) async {
-    await SQLHelper.updateData(id, _titleController.text, _descController.text);
-    _refreshData();
-  }
-
-  void _deleteData(int id) async {
-    await SQLHelper.deleteData(id);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      backgroundColor: Colors.redAccent,
-      content: Text("data Deleted"),
-    ));
-    _refreshData();
-  }
-
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descController = TextEditingController();
-
-  void showBottomSheet(int? id) async {
-    if (id != null) {
-      final existingData =
-          _allData.firstWhere((element) => element['id'] == id);
-      _titleController.text = existingData['title'];
-      _descController.text = existingData['description'];
+  Future<void> _deleteNote(int idNotes) async {
+    try {
+      bool success = await DataService.deleteNoteById(idNotes);
+      if (success) {
+        setState(() {
+          _notesFuture = DataService.fetchNotes();
+        });
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Catatan berhasil dihapus')),
+        );
+      } else {
+        throw Exception('Gagal menghapus catatan');
+      }
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Gagal menghapus catatan')),
+      );
+      // ignore: avoid_print
+      print('Error deleting note: $e');
     }
-
-    showModalBottomSheet(
-      elevation: 5,
-      isScrollControlled: true,
-      context: context,
-      builder: (_) => Container(
-        padding: EdgeInsets.only(
-            top: 30,
-            left: 15,
-            right: 15,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 50),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Title"),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: _descController,
-              maxLines: 4,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Description"),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (id == null) {
-                    await _addData();
-                  } else {
-                    await _updateData(id);
-                  }
-
-                  _titleController.text = "";
-                  _descController.text = "";
-
-                  Navigator.of(context).pop();
-                  print("Data Added/Updated");
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(18),
-                  child: Text(
-                    id == null ? "Add Data" : "Update",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFECEAF4),
       appBar: AppBar(
-        title: Text("CRUD"),
+        title: const Text('Notes'),
       ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: _allData.length,
-              itemBuilder: (context, index) => Card(
-                margin: EdgeInsets.all(15),
-                child: ListTile(
-                  title: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Text(
-                      _allData[index]['title'],
-                      style: TextStyle(fontSize: 20),
+      body: FutureBuilder<List<Notes>>(
+        future: _notesFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No notes available'));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final note = snapshot.data![index];
+                return Card(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  elevation: 3,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailNoteScreen(note),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                note.title,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  _deleteNote(note.idNotes);
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          const Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Baca Selengkapnya',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  subtitle: Text(_allData[index]['description']),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          showBottomSheet(_allData[index]['id']);
-                        },
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.indigo,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          _deleteData(_allData[index]['id']);
-                        },
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                );
+              },
+            );
+          }
+        },
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showBottomSheet(null),
-        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddNoteScreen()),
+          ).then((_) {
+            setState(() {
+              _notesFuture = DataService.fetchNotes();
+            });
+          });
+        },
+        tooltip: 'Tambah Catatan',
+        child: const Icon(Icons.add),
       ),
     );
   }

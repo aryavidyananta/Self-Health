@@ -1,6 +1,3 @@
-// ignore: unused_import
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class SizeConfig {
@@ -8,16 +5,13 @@ class SizeConfig {
   static double? screenWidth;
   static double? screenHeight;
   static double? blockSizeHorizontal;
-  static double? blockSizedVertical;
-
-  // ignore: prefer_typing_uninitialized_variables
-  static var blocSizeHorizontal;
+  static double? blockSizeVertical;
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData!.size.width;
     screenHeight = _mediaQueryData!.size.height;
     blockSizeHorizontal = screenWidth! / 100;
-    blockSizedVertical = screenHeight! / 100;
+    blockSizeVertical = screenHeight! / 100;
   }
 }

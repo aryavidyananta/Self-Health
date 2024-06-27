@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'dart:io';
 
@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_self/endpoints/endpoints.dart';
 
 class FormScreen extends StatefulWidget {
+  // ignore: use_super_parameters
   const FormScreen({Key? key}) : super(key: key);
 
   @override
