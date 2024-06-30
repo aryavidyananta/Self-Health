@@ -52,6 +52,7 @@ dependencies:
   assets_audio_player: ^3.1.1
   audioplayers_web: ^5.0.0
   shared_preferences: ^2.2.3
+  flutter_launcher_icons: ^0.13.1
   
 
 dev_dependencies:
@@ -64,6 +65,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/Logomind.png"
+  min_sdk_android: 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

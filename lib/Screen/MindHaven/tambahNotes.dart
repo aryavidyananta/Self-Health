@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_self/service/data_service.dart'; // Sesuaikan dengan lokasi DataService
 
-// ignore: use_key_in_widget_constructors
 class AddNoteScreen extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
   _AddNoteScreenState createState() => _AddNoteScreenState();
 }
 
@@ -22,38 +20,85 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       bool success = await DataService.tambahNotes(title, description);
 
       if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Catatan berhasil ditambahkan'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        Navigator.of(context).pop();
+        _showSuccessDialog();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Gagal menambahkan catatan. Silakan coba lagi.'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        _showErrorDialog('Gagal menambahkan catatan. Silakan coba lagi.');
       }
     } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Judul dan deskripsi catatan harus diisi.'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-      );
+      _showErrorDialog('Judul dan deskripsi catatan harus diisi.');
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.greenAccent, Colors.lightGreen],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Icon(
+                Icons.check_circle,
+                color: Colors.white,
+                size: 60,
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Catatan berhasil ditambahkan',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.redAccent, Colors.red],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.error,
+                color: Colors.white,
+                size: 60,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                message,
+                style: const TextStyle(color: Colors.white, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -80,18 +125,22 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             const SizedBox(height: 24),
             TextField(
               controller: _titleController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Judul',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
               ),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _descriptionController,
               maxLines: 8,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Deskripsi',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
               ),
             ),
             const SizedBox(height: 24),
@@ -100,10 +149,13 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 13, 143, 134),
                 padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
               ),
               child: const Text(
                 'Simpan',
-                style: TextStyle(fontSize: 18, color: Colors.black),
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
           ],

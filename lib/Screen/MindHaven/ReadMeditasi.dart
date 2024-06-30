@@ -13,7 +13,7 @@ class DetailAudioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Audio'),
+        title: const Text('Detail Meditasi'),
         backgroundColor: const Color.fromARGB(255, 13, 143, 134),
       ),
       body: Padding(

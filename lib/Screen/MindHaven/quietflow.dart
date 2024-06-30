@@ -3,10 +3,8 @@ import 'package:my_self/Screen/MindHaven/ReadMeditasi.dart';
 import 'package:my_self/dto/audio.dart'; // Sesuaikan dengan path yang sesuai dengan struktur proyek Anda
 import 'package:my_self/service/data_service.dart'; // Sesuaikan dengan service untuk mengambil audio
 
-// ignore: use_key_in_widget_constructors
 class QuietFlowScreen extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
   _QuietFlowScreenState createState() => _QuietFlowScreenState();
 }
 
@@ -52,6 +50,7 @@ class _QuietFlowScreenState extends State<QuietFlowScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quiet Flow'),
+        backgroundColor: Colors.teal,
       ),
       body: Center(
         child: isLoading
@@ -88,25 +87,22 @@ class _QuietFlowScreenState extends State<QuietFlowScreen> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Image.asset(
-                                        'assets/images/ger 33.jpg',
-                                        height: 300,
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.asset(
+                                          'assets/images/ger 33.jpg',
+                                          height: 200,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                       const SizedBox(height: 16),
                                       Text(
                                         audio.namaAudioMeditas,
+                                        textAlign: TextAlign.center,
                                         style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        audio
-                                            .keterangan, // Menampilkan keterangan audio
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey,
                                         ),
                                       ),
                                       const SizedBox(height: 16),
@@ -121,16 +117,19 @@ class _QuietFlowScreenState extends State<QuietFlowScreen> {
                                                         audio: audio)),
                                           );
                                         },
-                                        // ignore: sort_child_properties_last
-                                        child: const Text('Baca Selengkapnya'),
+                                        child: const Text(
+                                          'Baca Selengkapnya',
+                                          style: TextStyle(
+                                            color: Colors
+                                                .white, // Ubah warna teks di sini
+                                          ),
+                                        ),
                                         style: ElevatedButton.styleFrom(
-                                          foregroundColor: Colors.black,
-                                          backgroundColor:
-                                              Colors.lightBlueAccent,
-                                          textStyle:
-                                              const TextStyle(fontSize: 16),
+                                          backgroundColor: Colors.teal,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 10),
+                                          textStyle:
+                                              const TextStyle(fontSize: 16),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20),

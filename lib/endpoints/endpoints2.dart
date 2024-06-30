@@ -1,6 +1,6 @@
 // dto/endpoints.dart
 class Endpoints2 {
-  static String baseURLLive = "http://192.168.18.206:5000";
+  static String baseURLLive = "http://192.168.18.131:5000";
 
   // Function to update baseURL
   static void updateBaseURL(String url) {

@@ -24,7 +24,10 @@ class LoginSignUpScreen extends StatelessWidget {
                 Container(
                   // ignore: prefer_const_constructors
                   padding: EdgeInsets.only(bottom: 20),
-                  child: Image.asset("assets/images/Get.png"),
+                  child: Image.asset("assets/images/mental.png"),
+                ),
+                SizedBox(
+                  height: 40,
                 ),
                 // ignore: avoid_unnecessary_containers
                 Container(
@@ -50,13 +53,13 @@ class LoginSignUpScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 60,
                 ),
                 MyButton(
                     customColor:
                         // ignore: prefer_const_constructors
                         Color.fromARGB(255, 13, 143, 134).withOpacity(0.7),
-                    text: "Get Started",
+                    text: "Mulai Sekarang",
                     onTap: () {
                       Navigator.push(
                           context,

@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const SizedBox(height: 20),
                   const Text(
-                    "Welcome",
+                    "Selamat Datang",
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -124,31 +124,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 12),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 25),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Remember Me",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 13, 143, 134),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
                   const SizedBox(height: 100),
                   MyButton(
                     customColor: const Color.fromARGB(255, 13, 143, 134),
                     text: "Sign In",
                     onTap: () {
                       sendLogin(context, authCubit, dataLogin);
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MyButton(
+                    customColor: const Color.fromARGB(255, 13, 143, 134),
+                    text: "Tambah URL",
+                    onTap: () {
+                      Navigator.pushNamed(context, '/config-screen');
                     },
                   ),
                   const SizedBox(height: 20),
@@ -176,17 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-            ),
-          ),
-          Positioned(
-            bottom: 100,
-            right: 20,
-            child: FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 13, 143, 134),
-              onPressed: () {
-                Navigator.pushNamed(context, '/config-screen');
-              },
-              child: const Icon(Icons.wifi),
             ),
           ),
         ],

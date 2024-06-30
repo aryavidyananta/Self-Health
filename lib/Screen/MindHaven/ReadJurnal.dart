@@ -1,16 +1,10 @@
-// Screen/MindHaven/ReadJurnalScreen.dart
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:my_self/Screen/MindHaven/JurnalDetail.dart';
-import 'package:my_self/Screen/MindHaven/TambahJurnal.dart';
 import 'package:my_self/dto/jurnal.dart';
 import 'package:my_self/service/data_service.dart';
 
-// ignore: use_key_in_widget_constructors
 class ReadJurnalScreen extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
   _ReadJurnalScreenState createState() => _ReadJurnalScreenState();
 }
 
@@ -28,17 +22,6 @@ class _ReadJurnalScreenState extends State<ReadJurnalScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar Jurnal'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddJurnalScreen()),
-              );
-            },
-          ),
-        ],
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
@@ -74,8 +57,7 @@ class _ReadJurnalScreenState extends State<ReadJurnalScreen> {
                       margin: const EdgeInsets.only(bottom: 16.0),
                       padding: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(
-                            255, 189, 196, 46), // Warna background container
+                        color: const Color.fromARGB(255, 189, 196, 46),
                         borderRadius: BorderRadius.circular(10.0),
                         boxShadow: [
                           BoxShadow(
@@ -92,44 +74,18 @@ class _ReadJurnalScreenState extends State<ReadJurnalScreen> {
                           Text(
                             jurnalItem.title,
                             style: const TextStyle(
-                              color: Color.fromARGB(
-                                  255, 0, 0, 0), // Warna teks judul
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(height: 8.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                'Nama Pembuat: ${jurnalItem.namapembuat ?? "Tidak diketahui"}', // Menggunakan atribut namaPembuat dari DTO
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => JurnalDetailScreen(
-                                        jurnal: jurnalItem,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: const Text(
-                                  'Baca Selengkapnya',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 149, 255),
-                                    fontSize: 14.0,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          Text(
+                            'Penulis: ${jurnalItem.namapembuat ?? "Tidak diketahui"}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                            ),
                           ),
                         ],
                       ),
@@ -140,28 +96,6 @@ class _ReadJurnalScreenState extends State<ReadJurnalScreen> {
             }
           },
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        // ignore: prefer_const_literals_to_create_immutables
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Daftar Jurnal',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Tambah Jurnal',
-          ),
-        ],
-        selectedItemColor: Colors.blue,
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddJurnalScreen()),
-            );
-          }
-        },
       ),
     );
   }

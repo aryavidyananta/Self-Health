@@ -45,7 +45,6 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 if (state is DataLoginInitial) {
                   return DrawerHeader(
-                    // ignore: prefer_const_constructors
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 13, 143, 134),
                     ),
@@ -55,39 +54,60 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           height: 60,
                           width: 60,
-                          // ignore: prefer_const_constructors
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            // ignore: prefer_const_constructors
                             image: DecorationImage(
-                              image:
-                                  const AssetImage("assets/images/master.jpg"),
+                              image: AssetImage("assets/images/master.jpg"),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         const SizedBox(height: 10),
-                        // ignore: prefer_const_constructors
                         Text(
                           'Hi, Selamat Bergabung',
-                          // ignore: prefer_const_constructors
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                           ),
                         ),
-                        // ignore: prefer_const_constructors
-                        Text(
-                          'Belum ada pengguna', // Placeholder text if no user is logged in
-                          // ignore: prefer_const_constructors
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
+                        BlocBuilder<DataLoginCubit, DataLoginState>(
+                          builder: (context, state) {
+                            if (state is DataLoginState) {
+                              final profile = state.profile;
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    profile.namapengguna ?? '-',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Text(
+                                    profile.email ?? '-',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return const Text(
+                                'Belum ada pengguna',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ],
                     ),
                   );
+
                   // ignore: unnecessary_type_check
                 } else if (state is DataLoginState) {
                   return DrawerHeader(
@@ -182,7 +202,7 @@ class HomeScreen extends StatelessWidget {
           child: const Column(
             children: [
               // ignore: unnecessary_const
-              const UserInfo(),
+              // const UserInfo(),
               SizedBox(height: 20),
               GetBestMedicalService(),
               // ignore: prefer_const_constructors
@@ -250,38 +270,6 @@ class UserInfo extends StatelessWidget {
         return const SizedBox
             .shrink(); // Mengembalikan widget kosong jika tidak ada data yang tersedia
       },
-    );
-  }
-}
-
-class SearchMedical extends StatelessWidget {
-  const SearchMedical({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    return Padding(
-      padding:
-          EdgeInsets.symmetric(vertical: SizeConfig.blockSizeVertical! * 3),
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: "Search..",
-          fillColor: AppStyle.inputFillColor,
-          filled: true,
-          prefixIcon: CupertinoButton(
-            onPressed: () {},
-            child: const Icon(Icons.search),
-          ),
-          suffixIcon: CupertinoButton(
-            onPressed: () {},
-            child: const Icon(Icons.filter_list),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(18),
-          ),
-        ),
-      ),
     );
   }
 }
@@ -429,7 +417,7 @@ class VerticalScrollView extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildCategoryCard('Jurnal'),
+              _buildCategoryCard('Hidup Sehat itu Penting'),
               _buildCategoryCard('Konsultasi'),
               _buildCategoryCard('Meditasi'),
             ],
@@ -486,7 +474,7 @@ class DoctorList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Buat Kamu Yang Sedang Bosen",
+            "ayo motivasi dirimu!!",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -498,109 +486,7 @@ class DoctorList extends StatelessWidget {
   }
 }
 
-// ignore: use_key_in_widget_constructors
-class DoctorCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF00C6FF), Color.fromARGB(255, 0, 114, 255)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 100,
-              height: 100,
-              margin: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/images/Dokter1.png"),
-                ),
-              ),
-            ),
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dr. John Doe',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 20,
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          '4.5',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.chat,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          'Konsultasi',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-// Ganti dengan import sesuai dengan struktur aplikasi Anda
-
-// Import detail_screen.dart di sini atau sesuaikan dengan struktur proyek Anda
-
 class TypesList extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const TypesList({Key? key});
 
   @override
@@ -626,7 +512,6 @@ class TypesList extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    // Handle container tap here
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -636,11 +521,15 @@ class TypesList extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      gradient: LinearGradient(
+                        colors: [Colors.white, Colors.blue.shade50],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withOpacity(0.3),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: const Offset(0, 3),
@@ -655,20 +544,13 @@ class TypesList extends StatelessWidget {
                             data['title'],
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 24,
                             ),
                           ),
-                          subtitle: Text(data['description']),
-                          // ignore: prefer_const_constructors
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            // ignore: prefer_const_literals_to_create_immutables
-                            children: [],
-                          ),
                         ),
-                        const SizedBox(height: 2),
+                        const SizedBox(height: 8),
                         GestureDetector(
                           onTap: () {
-                            // Handle "Baca Selengkapnya" tap here
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -676,8 +558,8 @@ class TypesList extends StatelessWidget {
                               ),
                             );
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
                               'Baca Selengkapnya',
                               style: TextStyle(
@@ -687,6 +569,7 @@ class TypesList extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),

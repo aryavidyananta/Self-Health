@@ -50,11 +50,6 @@ class _DetailDokterScreenState extends State<DetailDokterScreen> {
               padding: const EdgeInsets.all(20),
               children: [
                 const SizedBox(height: 20),
-                CircleAvatar(
-                  radius: 70,
-                  backgroundImage: AssetImage(dokter.foto),
-                ),
-                const SizedBox(height: 20),
                 itemProfile('Nama Lengkap', dokter.namaLengkap, Icons.person),
                 const SizedBox(height: 20),
                 itemProfile('Tempat Kerja', dokter.tempatKerja, Icons.work),

@@ -12,6 +12,8 @@ class DataLoginState {
       // ignore: non_constant_identifier_names
       required this.IdPengguna,
       required});
+
+  get profile => null;
 }
 
 final class DataLoginInitial extends DataLoginState {
